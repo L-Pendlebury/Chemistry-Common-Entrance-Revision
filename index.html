@@ -1,0 +1,1865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISEB 13+ Chemistry · Complete Revision</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800;9..144,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f1f0ec;
+    --paper: #fbfaf6;
+    --ink: #1d2330;
+    --ink-soft: #5d6478;
+    --indigo: #2d3a6b;
+    --indigo-light: #4a5a92;
+    --copper: #b56240;
+    --copper-pale: #f4ddc9;
+    --flask: #5b8aa4;
+    --flask-pale: #d6e3eb;
+    --gold: #c89832;
+    --gold-pale: #f4e8c8;
+    --rust: #b5482a;
+    --rust-pale: #f4d8cc;
+    --green: #4a7a52;
+    --green-pale: #d8e8d4;
+    --line: #d6d2c5;
+    --shadow: 0 1px 2px rgba(29,35,48,0.06), 0 4px 12px rgba(29,35,48,0.04);
+    --radius: 10px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, sans-serif;
+    line-height: 1.65;
+    font-size: 16px;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(circle at 15% 10%, rgba(91,138,164,0.08), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(181,98,64,0.06), transparent 40%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 24px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Header ── */
+  header {
+    text-align: center;
+    margin-bottom: 36px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+  }
+  .crest {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--indigo);
+    background: var(--flask-pale);
+    padding: 5px 16px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  h1 em { font-style: italic; color: var(--indigo); font-weight: 400; }
+  .lede {
+    margin-top: 12px;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    max-width: 580px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ── Tabs ── */
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    background: var(--paper);
+    padding: 6px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    margin-bottom: 28px;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 12px;
+    z-index: 10;
+    backdrop-filter: blur(8px);
+  }
+  .tab {
+    flex: 1;
+    min-width: 120px;
+    padding: 10px 14px;
+    border: none;
+    background: transparent;
+    color: var(--ink-soft);
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.18s;
+    text-align: center;
+  }
+  .tab:hover { color: var(--indigo); background: var(--flask-pale); }
+  .tab.active { background: var(--indigo); color: var(--paper); box-shadow: 0 2px 6px rgba(45,58,107,0.25); }
+
+  /* ── Topic nav ── */
+  .topic-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 24px;
+  }
+  .topic-pill {
+    font-size: 0.78rem;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: all 0.18s;
+    font-family: inherit;
+  }
+  .topic-pill:hover { border-color: var(--indigo); color: var(--indigo); }
+  .topic-pill.active { background: var(--indigo); color: var(--paper); border-color: var(--indigo); }
+
+  /* ── Panel base ── */
+  .panel { display: none; animation: fadeIn 0.25s ease; }
+  .panel.active { display: block; }
+  @keyframes fadeIn { from {opacity:0; transform: translateY(4px);} to {opacity:1; transform: translateY(0);} }
+
+  /* ── Topic explanations ── */
+  .topic-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+    display: none;
+  }
+  .topic-card.active { display: block; }
+
+  .topic-card h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: var(--indigo);
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+  .topic-card .topic-meta {
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    font-weight: 600;
+  }
+  .topic-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-top: 22px;
+    margin-bottom: 8px;
+    color: var(--ink);
+    border-left: 3px solid var(--flask);
+    padding-left: 10px;
+  }
+  .topic-card p { margin-bottom: 12px; color: var(--ink); }
+  .topic-card ul, .topic-card ol { margin: 10px 0 12px 24px; }
+  .topic-card li { margin-bottom: 6px; }
+
+  .word-eq {
+    display: inline-block;
+    background: var(--flask-pale);
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 600;
+    color: var(--indigo);
+    margin: 4px 0;
+  }
+
+  .practical-box {
+    background: var(--gold-pale);
+    border-left: 3px solid var(--gold);
+    padding: 12px 18px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0;
+    font-size: 0.92rem;
+  }
+  .practical-box strong { color: var(--gold); }
+
+  .formula-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 8px;
+    margin: 14px 0;
+  }
+  .formula-grid div {
+    background: var(--flask-pale);
+    padding: 8px 12px;
+    border-radius: 6px;
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-size: 0.95rem;
+    color: var(--indigo);
+  }
+  .formula-grid div strong {
+    font-weight: 700;
+    display: block;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 2px;
+  }
+
+  /* ── Keyword cards ── */
+  .keyword-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+  }
+  .kw-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    box-shadow: var(--shadow);
+  }
+  .kw-term {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--indigo);
+    margin-bottom: 4px;
+  }
+  .kw-def { font-size: 0.9rem; color: var(--ink); }
+  .kw-topic {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 0.7rem;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+  }
+
+  /* ── Flashcards ── */
+  .flash-area {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .flash-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 36px;
+    min-height: 240px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+  .flash-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(29,35,48,0.08); }
+  .flash-card .flash-side-label {
+    position: absolute;
+    top: 14px; right: 16px;
+    font-size: 0.7rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .flash-q {
+    font-family: 'Fraunces', serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: center;
+  }
+  .flash-a {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .flash-hint {
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 0.82rem;
+    margin-top: 16px;
+    font-style: italic;
+  }
+  .flash-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+    align-items: center;
+  }
+
+  .btn {
+    padding: 10px 22px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    color: var(--ink);
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.88rem;
+    transition: all 0.18s;
+  }
+  .btn:hover { border-color: var(--indigo); color: var(--indigo); }
+  .btn.primary { background: var(--indigo); color: var(--paper); border-color: var(--indigo); }
+  .btn.primary:hover { background: var(--indigo-light); color: var(--paper); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .counter {
+    color: var(--ink-soft);
+    font-size: 0.85rem;
+    font-weight: 600;
+    min-width: 60px;
+    text-align: center;
+  }
+
+  /* ── Gap fill ── */
+  .gap-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
+  }
+  .gap-q {
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 12px;
+  }
+  .gap-input {
+    display: inline-block;
+    border: none;
+    border-bottom: 2px solid var(--indigo);
+    background: transparent;
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--indigo);
+    font-weight: 600;
+    padding: 2px 6px;
+    width: 140px;
+    outline: none;
+  }
+  .gap-input:focus { border-color: var(--flask); background: var(--flask-pale); }
+  .gap-input.right { border-color: var(--green); background: var(--green-pale); color: var(--green); }
+  .gap-input.wrong { border-color: var(--rust); background: var(--rust-pale); color: var(--rust); }
+  .gap-feedback {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    margin-top: 8px;
+    min-height: 18px;
+  }
+
+  /* ── MCQ ── */
+  .mcq-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+  }
+  .mcq-q {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+  .mcq-num {
+    color: var(--indigo);
+    font-weight: 700;
+    margin-right: 6px;
+  }
+  .mcq-options {
+    display: grid;
+    gap: 8px;
+  }
+  .mcq-opt {
+    padding: 11px 16px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--paper);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.92rem;
+    text-align: left;
+    transition: all 0.18s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .mcq-opt:hover:not(:disabled) {
+    border-color: var(--indigo);
+    background: var(--flask-pale);
+  }
+  .mcq-opt-letter {
+    width: 22px; height: 22px;
+    border-radius: 5px;
+    background: var(--flask-pale);
+    color: var(--indigo);
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .mcq-opt.correct {
+    border-color: var(--green);
+    background: var(--green-pale);
+  }
+  .mcq-opt.correct .mcq-opt-letter { background: var(--green); color: var(--paper); }
+  .mcq-opt.wrong {
+    border-color: var(--rust);
+    background: var(--rust-pale);
+  }
+  .mcq-opt.wrong .mcq-opt-letter { background: var(--rust); color: var(--paper); }
+  .mcq-feedback {
+    margin-top: 14px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    display: none;
+  }
+  .mcq-feedback.show { display: block; }
+  .mcq-feedback.correct { background: var(--green-pale); color: var(--green); }
+  .mcq-feedback.wrong { background: var(--rust-pale); color: var(--rust); }
+
+  /* ── Exam questions ── */
+  .exam-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 26px 30px;
+    margin-bottom: 18px;
+    box-shadow: var(--shadow);
+  }
+  .exam-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .exam-num {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--indigo);
+  }
+  .exam-marks {
+    background: var(--gold-pale);
+    color: var(--gold);
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .exam-q {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+  .exam-q ol, .exam-q ul { margin: 8px 0 8px 24px; }
+  .exam-q li { margin-bottom: 6px; }
+  .reveal-btn {
+    margin-top: 4px;
+    padding: 8px 18px;
+    background: transparent;
+    border: 1px solid var(--indigo);
+    color: var(--indigo);
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.18s;
+  }
+  .reveal-btn:hover { background: var(--indigo); color: var(--paper); }
+  .ms {
+    margin-top: 14px;
+    background: var(--green-pale);
+    border-left: 3px solid var(--green);
+    padding: 14px 18px;
+    border-radius: 0 8px 8px 0;
+    display: none;
+    font-size: 0.92rem;
+  }
+  .ms.show { display: block; }
+  .ms strong { color: var(--green); }
+  .ms .mark { color: var(--gold); font-weight: 700; }
+  .ms ul { margin: 6px 0 6px 22px; }
+
+  /* ── Score / progress ── */
+  .progress {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+    box-shadow: var(--shadow);
+  }
+  .progress-bar {
+    flex: 1;
+    height: 6px;
+    background: var(--flask-pale);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--flask), var(--indigo));
+    width: 0%;
+    transition: width 0.3s;
+  }
+  .progress-text {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .panel-intro {
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+    margin-bottom: 18px;
+    padding: 12px 16px;
+    background: var(--paper);
+    border: 1px dashed var(--line);
+    border-radius: 8px;
+  }
+
+  table.data {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 0.92rem;
+  }
+  table.data th {
+    text-align: left;
+    padding: 10px;
+    background: var(--flask-pale);
+    border-bottom: 1px solid var(--line);
+    color: var(--indigo);
+    font-weight: 700;
+  }
+  table.data td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  @media (max-width: 640px) {
+    .topic-card { padding: 20px; }
+    .tab { min-width: 100px; font-size: 0.8rem; padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="crest">ISEB · Common Entrance · 13+</div>
+  <h1>Chemistry <em>Complete Revision</em></h1>
+  <p class="lede">Every topic from the 13+ Chemistry specification (pp. 37–39): explanations, keywords, flashcards, gap-fills, multiple choice, and exam-style questions with mark schemes.</p>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="tab active" data-panel="learn">📖 Learn</button>
+  <button class="tab" data-panel="keywords">🔑 Keywords</button>
+  <button class="tab" data-panel="flash">🃏 Flashcards</button>
+  <button class="tab" data-panel="gap">✏️ Gap Fill</button>
+  <button class="tab" data-panel="mcq">📝 MCQs</button>
+  <button class="tab" data-panel="exam">🎓 Exam Qs</button>
+</nav>
+
+<!-- ═══════════════════════════ LEARN PANEL ═══════════════════════════ -->
+<section class="panel active" id="panel-learn">
+  <div class="topic-list" id="learnTopics"></div>
+
+  <article class="topic-card active" data-topic="states">
+    <h2>States of Matter — The Particle Model</h2>
+    <div class="topic-meta">Topic 1 · Solids, liquids, gases &amp; particle behaviour</div>
+
+    <h3>The three states</h3>
+    <p>All matter is made up of tiny particles. The way these particles are arranged and how they move determines whether a substance is a solid, liquid or gas.</p>
+    <table class="data">
+      <thead><tr><th>State</th><th>Arrangement</th><th>Movement</th><th>Forces</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Solid</strong></td><td>Closely packed, regular</td><td>Vibrate in fixed positions</td><td>Strong</td></tr>
+        <tr><td><strong>Liquid</strong></td><td>Closely packed, irregular</td><td>Move past each other</td><td>Moderate</td></tr>
+        <tr><td><strong>Gas</strong></td><td>Far apart, random</td><td>Move quickly in all directions</td><td>Very weak / negligible</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Gas pressure</h3>
+    <p>The pressure of a gas is caused by gas particles <strong>colliding with the walls of their container</strong>. The more frequent or harder the collisions, the higher the pressure. Heating a gas makes the particles move faster, so they collide harder and more often — pressure increases.</p>
+
+    <h3>Diffusion</h3>
+    <p><strong>Diffusion</strong> is the spreading out of particles from a region of high concentration to a region of low concentration. It happens because particles are in constant <em>random motion</em>. Examples: smelling perfume across a room (gas diffusion), purple potassium manganate(VII) spreading through water (solid in solution).</p>
+    <p>Diffusion is fastest in <strong>gases</strong> (particles move most quickly) and slowest in liquids. It does not happen in solids because particles cannot move past each other.</p>
+
+    <h3>Changes of state</h3>
+    <p>When a substance changes state, the particles' arrangement and motion change — but the particles themselves do not change. Energy is needed to overcome the forces between particles.</p>
+    <ul>
+      <li><strong>Melting</strong>: solid → liquid</li>
+      <li><strong>Boiling / evaporating</strong>: liquid → gas</li>
+      <li><strong>Condensing</strong>: gas → liquid</li>
+      <li><strong>Freezing</strong>: liquid → solid</li>
+      <li><strong>Sublimation</strong>: solid → gas directly (e.g. iodine, dry ice / solid CO₂)</li>
+    </ul>
+
+    <div class="practical-box">
+      <strong>Practicals:</strong> melting solids (e.g. sulfur, ice); boiling liquids (e.g. water); subliming solids (e.g. iodine); diffusion of gases (e.g. ammonia); diffusion of solids in solutions (e.g. potassium manganate(VII), KMnO₄).
+    </div>
+  </article>
+
+  <article class="topic-card" data-topic="atoms">
+    <h2>Atoms and Elements</h2>
+    <div class="topic-meta">Topic 2 · The building blocks of matter</div>
+
+    <h3>The Dalton atomic model</h3>
+    <p>John Dalton proposed that all matter is made of tiny indivisible particles called <strong>atoms</strong>. The simple Dalton model states:</p>
+    <ul>
+      <li>All matter is made of atoms.</li>
+      <li>Atoms cannot be created or destroyed (in chemical reactions).</li>
+      <li>Atoms of the same element are identical.</li>
+      <li>Atoms of different elements differ.</li>
+    </ul>
+
+    <h3>Elements</h3>
+    <p>An <strong>element</strong> is a substance made of only <em>one</em> type of atom. There are about <strong>100 elements</strong> in the Periodic Table. Each element has a chemical <strong>symbol</strong> — one or two letters. The first letter is always a capital; the second (if any) is always lowercase. A symbol always represents <em>one atom</em> of that element.</p>
+
+    <h3>Symbols you must know</h3>
+    <div class="formula-grid">
+      <div><strong>H</strong>Hydrogen</div>
+      <div><strong>C</strong>Carbon</div>
+      <div><strong>N</strong>Nitrogen</div>
+      <div><strong>O</strong>Oxygen</div>
+      <div><strong>S</strong>Sulfur</div>
+      <div><strong>Mg</strong>Magnesium</div>
+      <div><strong>Na</strong>Sodium</div>
+      <div><strong>Cl</strong>Chlorine</div>
+      <div><strong>Ca</strong>Calcium</div>
+      <div><strong>Cu</strong>Copper</div>
+      <div><strong>Fe</strong>Iron</div>
+      <div><strong>He</strong>Helium</div>
+    </div>
+
+    <h3>Metals vs non-metals</h3>
+    <table class="data">
+      <thead><tr><th>Property</th><th>Metals</th><th>Non-metals</th></tr></thead>
+      <tbody>
+        <tr><td>Appearance</td><td>Shiny (lustrous)</td><td>Dull</td></tr>
+        <tr><td>Conductivity</td><td>Good conductors of heat &amp; electricity</td><td>Poor conductors (insulators)*</td></tr>
+        <tr><td>State at room temp.</td><td>Mostly solid (except mercury)</td><td>Mix of solids, liquids, gases</td></tr>
+        <tr><td>Malleable / ductile</td><td>Yes</td><td>No (brittle if solid)</td></tr>
+        <tr><td>Density</td><td>Usually high</td><td>Usually low</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:0.85rem; color: var(--ink-soft);">*Exception: <em>graphite</em> (a form of carbon) is a non-metal that conducts electricity.</p>
+
+    <div class="practical-box">
+      <strong>Practicals:</strong> testing elements for conductivity (e.g. Fe, Al, S, graphite); examining hardness, appearance and other physical characteristics.
+    </div>
+  </article>
+
+  <article class="topic-card" data-topic="compounds">
+    <h2>Compounds and Molecules</h2>
+    <div class="topic-meta">Topic 3 · Combining atoms</div>
+
+    <h3>Compounds</h3>
+    <p>A <strong>compound</strong> is a substance made of two or more different elements <em>chemically joined</em> together. Although there are only about 100 elements, they can combine in many different ways to form millions of different compounds.</p>
+
+    <h3>Molecules and formulae</h3>
+    <p>A <strong>molecule</strong> is a particle made of two or more atoms chemically joined. A <strong>formula</strong> shows the elements present and the ratio of atoms. The small number (<em>subscript</em>) tells you how many atoms of the element before it are in the molecule.</p>
+    <p>For example, H₂O contains 2 atoms of hydrogen and 1 atom of oxygen.</p>
+
+    <h3>Formulae you must know</h3>
+    <div class="formula-grid">
+      <div><strong>H₂O</strong>Water</div>
+      <div><strong>CO₂</strong>Carbon dioxide</div>
+      <div><strong>O₂</strong>Oxygen (gas)</div>
+      <div><strong>CH₄</strong>Methane</div>
+      <div><strong>NaCl</strong>Sodium chloride (salt)</div>
+      <div><strong>HCl</strong>Hydrochloric acid</div>
+      <div><strong>NaOH</strong>Sodium hydroxide</div>
+      <div><strong>CaCO₃</strong>Calcium carbonate</div>
+      <div><strong>CuSO₄</strong>Copper sulfate</div>
+      <div><strong>H₂SO₄</strong>Sulfuric acid</div>
+    </div>
+
+    <h3>Properties of compounds</h3>
+    <p>A compound has <strong>different properties</strong> from the elements it is made from. For example:</p>
+    <ul>
+      <li>Iron (a magnetic, grey metal) + sulfur (a yellow non-metal powder) → <strong>iron sulfide</strong> (a non-magnetic, dark grey solid that does not behave like either element).</li>
+      <li>Sodium (a soft, reactive metal) + chlorine (a poisonous green gas) → <strong>sodium chloride</strong> (table salt — safe to eat).</li>
+    </ul>
+
+    <div class="practical-box">
+      <strong>Practical:</strong> Make iron sulfide from its elements by heating iron filings and sulfur powder. Compare the properties of Fe, S and FeS — the product is a new substance with different properties from either element.
+    </div>
+  </article>
+
+  <article class="topic-card" data-topic="pure">
+    <h2>Pure Substances</h2>
+    <div class="topic-meta">Topic 4 · Purity and the special properties of water</div>
+
+    <h3>What is a pure substance?</h3>
+    <p>A <strong>pure substance</strong> is made of only one type of particle — either one element or one compound. Mixtures are not pure.</p>
+
+    <h3>Identifying pure substances by melting and boiling points</h3>
+    <p>A pure substance has a <em>fixed</em> melting point and boiling point. An impure substance (a mixture) melts and boils over a <em>range</em> of temperatures.</p>
+    <ul>
+      <li>Pure water boils at exactly 100 °C and freezes at exactly 0 °C (at atmospheric pressure).</li>
+      <li>Salty water boils above 100 °C and freezes below 0 °C — and both happen over a range.</li>
+    </ul>
+
+    <h3>Evaporation vs boiling</h3>
+    <p>Both turn liquid into gas, but:</p>
+    <ul>
+      <li><strong>Boiling</strong> happens at the boiling point throughout the liquid.</li>
+      <li><strong>Evaporation</strong> can happen at <em>any</em> temperature, only at the surface of the liquid.</li>
+    </ul>
+
+    <h3>The anomalous properties of water</h3>
+    <p>Water behaves unusually compared with other small molecules:</p>
+    <ul>
+      <li><strong>Ice is less dense than water</strong> — so ice floats. Most substances are denser as solids than as liquids. This is why pipes can burst in winter and rocks crack as water freezes inside them.</li>
+      <li>Water has a high boiling point for such a small molecule.</li>
+      <li>Water is the only common substance that exists naturally as a solid, liquid and gas at typical Earth temperatures.</li>
+    </ul>
+
+    <div class="practical-box">
+      <strong>Practicals:</strong> measure the melting point of a pure solid (e.g. stearic acid) and an impure substance (e.g. candle wax); observe ice floating on water; freeze a plastic bottle full of water (it bulges/cracks).
+    </div>
+  </article>
+
+  <article class="topic-card" data-topic="mixtures">
+    <h2>Mixtures including Solutions</h2>
+    <div class="topic-meta">Topic 5 · Mixtures, solutions and air</div>
+
+    <h3>What is a mixture?</h3>
+    <p>A <strong>mixture</strong> contains two or more substances that are <em>not</em> chemically joined. The substances keep their own properties and can usually be separated by a physical process.</p>
+
+    <h3>Solutions and saturation</h3>
+    <p>A <strong>solution</strong> is a special type of mixture: a solute (e.g. salt) dissolved in a solvent (e.g. water). A <strong>saturated solution</strong> is one that has dissolved as much solute as it possibly can at that temperature — any more solute added will not dissolve.</p>
+    <p>Heating a solvent usually allows it to dissolve more solute (so a hot saturated solution becomes <em>unsaturated</em> when more solvent capacity opens up — but cooling it back down will cause some solute to crystallise out).</p>
+
+    <h3>Air — a mixture of gases</h3>
+    <p>Air is a mixture, not a compound. Approximate composition by volume:</p>
+    <ul>
+      <li><strong>Nitrogen</strong> — about <strong>78%</strong></li>
+      <li><strong>Oxygen</strong> — about <strong>21%</strong></li>
+      <li><strong>Argon</strong> — about 0.9%</li>
+      <li><strong>Carbon dioxide</strong> — about 0.04%</li>
+      <li>Plus water vapour and other trace gases</li>
+    </ul>
+
+    <h3>Uses of oxygen</h3>
+    <p>Oxygen is essential for <strong>respiration</strong> (in living things) and for <strong>combustion</strong> (burning). Oxygen and carbon dioxide are exchanged between living things and the atmosphere through respiration and photosynthesis.</p>
+
+    <div class="practical-box">
+      <strong>Practicals:</strong> Show that an Fe/S mixture has the same properties as the elements (each iron filing is still magnetic). Determine the proportion of oxygen in air by burning a candle in a sealed jar (water rises to fill ~⅕ of the volume) or using rusting iron wool over time.
+    </div>
+  </article>
+
+  <article class="topic-card" data-topic="separating">
+    <h2>Separating Mixtures</h2>
+    <div class="topic-meta">Topic 6 · Distillation, chromatography &amp; choosing a method</div>
+
+    <h3>Distillation</h3>
+    <p><strong>Distillation</strong> separates a liquid from a mixture by boiling it off and then condensing the vapour back into a pure liquid. It works because different substances have different boiling points.</p>
+    <ul>
+      <li>Heat the mixture until the substance with the lowest boiling point evaporates.</li>
+      <li>The vapour rises and passes through a condenser (cooled by water).</li>
+      <li>It condenses back to a pure liquid called the <strong>distillate</strong>.</li>
+    </ul>
+    <p><em>Example:</em> obtaining pure water from sea water — water boils at 100 °C and is collected as distillate; the salt is left behind. Evaporating sea water leaves salt; evaporating tap water leaves a small residue (dissolved minerals); evaporating pure water leaves nothing.</p>
+
+    <h3>Chromatography</h3>
+    <p><strong>Chromatography</strong> separates substances dissolved in a solvent — useful for identifying coloured substances such as inks, dyes and food colourings.</p>
+    <ul>
+      <li>Spot the mixture near the bottom of a strip of chromatography paper.</li>
+      <li>Stand the strip in a small amount of solvent (water or propanone). The solvent must be <em>below</em> the spots.</li>
+      <li>The solvent moves up the paper, carrying the substances with it. Different substances travel different distances depending on how much they dissolve in the solvent and how strongly they stick to the paper.</li>
+      <li>The separated spots can be compared with known reference substances.</li>
+    </ul>
+
+    <h3>Other separation methods (recap from 11+)</h3>
+    <ul>
+      <li><strong>Filtration</strong> — separates an insoluble solid from a liquid (the residue is left in the filter; the filtrate passes through).</li>
+      <li><strong>Evaporation</strong> — recovers a dissolved solid from a solution.</li>
+      <li><strong>Decanting</strong> — pouring a liquid off a settled solid.</li>
+    </ul>
+
+    <div class="practical-box">
+      <strong>Practicals:</strong> distillation of ink or sea water to recover pure water; effect of evaporating tap water, pure water and sea water; chromatography of felt-tip pen inks or M&amp;Ms / Smarties using water or propanone as the solvent.
+    </div>
+  </article>
+
+  <article class="topic-card" data-topic="combustion">
+    <h2>Combustion — Chemical Reactions</h2>
+    <div class="topic-meta">Topic 7 · Burning, gas tests and conservation of mass</div>
+
+    <h3>Using a Bunsen burner</h3>
+    <p>The Bunsen has two flames:</p>
+    <ul>
+      <li><strong>Yellow (safety) flame</strong> — air hole closed; cool, sooty, easy to see.</li>
+      <li><strong>Blue (roaring) flame</strong> — air hole open; hot, clean, used for heating.</li>
+    </ul>
+
+    <h3>Combustion of elements</h3>
+    <p>Burning is a chemical reaction with oxygen, producing an <strong>oxide</strong> and releasing energy as heat and light.</p>
+    <ul>
+      <li><span class="word-eq">magnesium + oxygen → magnesium oxide</span> (bright white flame; white powder)</li>
+      <li><span class="word-eq">sulfur + oxygen → sulfur dioxide</span> (blue flame; choking gas)</li>
+      <li><span class="word-eq">carbon + oxygen → carbon dioxide</span></li>
+    </ul>
+
+    <h3>Conservation of mass</h3>
+    <p>In a chemical reaction, atoms are <strong>rearranged</strong> — not created or destroyed. So the total mass of the products equals the total mass of the reactants. When magnesium burns, the magnesium oxide produced weighs <em>more</em> than the magnesium started with — because oxygen has been added from the air.</p>
+
+    <h3>Tests for gases</h3>
+    <table class="data">
+      <thead><tr><th>Gas</th><th>Test</th><th>Positive result</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Oxygen</strong></td><td>Insert a glowing splint</td><td>Splint <em>relights</em></td></tr>
+        <tr><td><strong>Carbon dioxide</strong></td><td>Bubble through limewater</td><td>Limewater turns <em>milky/cloudy</em></td></tr>
+        <tr><td><strong>Hydrogen</strong></td><td>Insert a lighted splint</td><td>Burns with a <em>squeaky pop</em></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Test for water</h3>
+    <p>Add the liquid to <strong>anhydrous (white) copper sulfate</strong>. If water is present, the powder turns from <em>white</em> to <em>blue</em>.</p>
+
+    <h3>Word equations</h3>
+    <p>Word equations show what reacts and what is produced. The reactants go on the left, the products on the right, separated by an arrow. <strong>State symbols</strong> can be added: (s) solid, (l) liquid, (g) gas, (aq) aqueous solution.</p>
+
+    <div class="practical-box">
+      <strong>Practicals:</strong> burn elements in air and oxygen; investigate mass changes when burning Mg (mass increases as oxygen is added).
+    </div>
+  </article>
+
+  <article class="topic-card" data-topic="fuels">
+    <h2>Fuels and Production of Carbon Dioxide</h2>
+    <div class="topic-meta">Topic 8 · Combustion of fuels and pollution</div>
+
+    <h3>Fuels and combustion</h3>
+    <p>A <strong>fuel</strong> is a substance that releases energy when burned. <strong>Hydrocarbons</strong> (compounds of hydrogen and carbon only — e.g. methane CH₄, petrol) and <strong>coal</strong> are common fuels. Fossil fuels (coal, crude oil, natural gas) were formed from the remains of dead plants and animals over millions of years.</p>
+
+    <h3>Complete combustion</h3>
+    <p>When a hydrocarbon burns in <em>plenty</em> of oxygen:</p>
+    <p style="text-align:center;"><span class="word-eq">hydrocarbon + oxygen → carbon dioxide + water</span></p>
+    <p>For methane: <span class="word-eq">methane + oxygen → carbon dioxide + water</span></p>
+
+    <h3>Incomplete combustion</h3>
+    <p>If there is <em>not enough oxygen</em>, hydrocarbons burn incompletely, producing <strong>carbon monoxide</strong> (CO) and even soot (carbon, C). Carbon monoxide is colourless, odourless and very toxic — it stops the blood from carrying oxygen.</p>
+
+    <h3>Polluting gases and the environment</h3>
+    <ul>
+      <li><strong>Carbon dioxide (CO₂)</strong> — a greenhouse gas. Increasing levels from burning fossil fuels are causing <em>climate change / global warming</em>.</li>
+      <li><strong>Carbon monoxide (CO)</strong> — toxic; from incomplete combustion (e.g. faulty boilers, car engines).</li>
+      <li><strong>Sulfur dioxide (SO₂)</strong> — produced when fuels containing sulfur (especially coal) burn. Dissolves in rain water to form <strong>acid rain</strong>, which damages buildings (especially limestone), kills aquatic life and harms forests.</li>
+      <li><strong>Nitrogen oxides (NO<sub>x</sub>)</strong> — also contribute to acid rain.</li>
+    </ul>
+
+    <div class="practical-box">
+      <strong>Practical:</strong> Test the products of burning natural gas or a candle. Hold a cold dry beaker above a flame — water condenses (test with anhydrous copper sulfate). Hold a beaker of limewater above the flame — it turns milky, showing CO₂ is produced.
+    </div>
+  </article>
+
+  <article class="topic-card" data-topic="oxidation">
+    <h2>Oxidation of Metals</h2>
+    <div class="topic-meta">Topic 9 · Reactions of metals and rusting</div>
+
+    <h3>Reactions of metals with oxygen</h3>
+    <p>Metals burn or tarnish in oxygen to form <strong>metal oxides</strong>:</p>
+    <p style="text-align:center;"><span class="word-eq">metal + oxygen → metal oxide</span></p>
+    <p>e.g. <span class="word-eq">magnesium + oxygen → magnesium oxide</span> (brilliant white flame)</p>
+
+    <h3>Reactions of metals with water</h3>
+    <p>Reactive metals react with water to give a metal hydroxide and hydrogen:</p>
+    <p style="text-align:center;"><span class="word-eq">metal + water → metal hydroxide + hydrogen</span></p>
+    <p>e.g. sodium fizzes vigorously on cold water. Magnesium reacts only very slowly with cold water but quickly with steam:</p>
+    <p style="text-align:center;"><span class="word-eq">magnesium + steam → magnesium oxide + hydrogen</span></p>
+
+    <h3>Reactions of metals with acids</h3>
+    <p style="text-align:center;"><span class="word-eq">metal + acid → salt + hydrogen</span></p>
+    <p>e.g. <span class="word-eq">magnesium + hydrochloric acid → magnesium chloride + hydrogen</span></p>
+    <p>The reaction is observed by fizzing (bubbles of hydrogen).</p>
+
+    <h3>Test for hydrogen</h3>
+    <p>Insert a lighted splint into the gas — it burns with a <strong>squeaky pop</strong>.</p>
+
+    <h3>Rusting of iron</h3>
+    <p>Iron rusts to form hydrated iron(III) oxide (rust). Rusting requires <strong>both air (oxygen) and water</strong>. Salt speeds it up.</p>
+    <p>Methods of preventing rusting:</p>
+    <ul>
+      <li><strong>Painting</strong> — barrier between iron and air/water.</li>
+      <li><strong>Oiling / greasing</strong> — same idea, used for moving parts.</li>
+      <li><strong>Galvanising</strong> — coating with zinc; even if scratched, the more reactive zinc corrodes preferentially (sacrificial protection).</li>
+      <li><strong>Coating with plastic</strong> — e.g. bicycle wheel rims.</li>
+      <li><strong>Alloying</strong> — making stainless steel (iron + chromium + nickel).</li>
+    </ul>
+
+    <div class="practical-box">
+      <strong>Practicals:</strong> react Mg with air, cold water, steam and acid (compare reactivity). Investigate rusting using three test tubes: iron + air only (no rust); iron + boiled water + oil layer to exclude air (no rust); iron + air + water (rusts) — proving both air and water are needed.
+    </div>
+  </article>
+
+  <article class="topic-card" data-topic="thermal">
+    <h2>Thermal Decomposition Reactions</h2>
+    <div class="topic-meta">Topic 10 · Breaking down compounds with heat</div>
+
+    <h3>What is thermal decomposition?</h3>
+    <p><strong>Thermal decomposition</strong> is when a compound breaks down into simpler substances on heating. It is a chemical reaction (not reversible by simple cooling).</p>
+
+    <h3>Heating copper carbonate</h3>
+    <p style="text-align:center;"><span class="word-eq">copper carbonate → copper oxide + carbon dioxide</span></p>
+    <p>Observations: the green powder (CuCO₃) turns black (CuO). The CO₂ produced can be tested with limewater (turns milky).</p>
+
+    <h3>Heating calcium carbonate</h3>
+    <p style="text-align:center;"><span class="word-eq">calcium carbonate → calcium oxide + carbon dioxide</span></p>
+    <p>This is the reaction used to make <em>quicklime</em> (calcium oxide) from limestone in industry.</p>
+
+    <h3>Heating hydrated copper(II) sulfate</h3>
+    <p style="text-align:center;"><span class="word-eq">hydrated copper sulfate → anhydrous copper sulfate + water</span></p>
+    <p>Observations: the <em>blue</em> hydrated crystals turn <em>white</em> as water is driven off. Adding water to the white powder turns it back to blue — this is also the test for water.</p>
+
+    <h3>Substances that don't decompose on heating</h3>
+    <p>Some substances are <strong>stable</strong> to heat. For example, <em>copper oxide</em> (CuO) does not change chemically when heated — it just gets hot.</p>
+
+    <div class="practical-box">
+      <strong>Practicals:</strong> heat copper carbonate in a test tube, observing the colour change and testing the gas produced with limewater. Heat hydrated copper sulfate (blue → white), then add water to the cool product (white → blue).
+    </div>
+  </article>
+
+  <article class="topic-card" data-topic="acids">
+    <h2>Acids and Alkalis</h2>
+    <div class="topic-meta">Topic 11 · The pH scale and indicators</div>
+
+    <h3>The pH scale</h3>
+    <p>The <strong>pH scale</strong> runs from 0 to 14 and shows how acidic or alkaline a solution is.</p>
+    <ul>
+      <li><strong>pH 0–6</strong> — acidic (lower number = stronger acid)</li>
+      <li><strong>pH 7</strong> — neutral (e.g. pure water)</li>
+      <li><strong>pH 8–14</strong> — alkaline (higher number = stronger alkali)</li>
+    </ul>
+
+    <h3>Indicators</h3>
+    <table class="data">
+      <thead><tr><th>Indicator</th><th>In acid</th><th>Neutral</th><th>In alkali</th></tr></thead>
+      <tbody>
+        <tr><td>Litmus</td><td>Red</td><td>Purple</td><td>Blue</td></tr>
+        <tr><td>Universal Indicator</td><td>Red/orange/yellow</td><td>Green</td><td>Blue/purple</td></tr>
+        <tr><td>Phenolphthalein</td><td>Colourless</td><td>Colourless</td><td>Pink</td></tr>
+      </tbody>
+    </table>
+    <p>A <strong>pH meter</strong> gives a more accurate numerical reading than indicators.</p>
+
+    <h3>Common acids and alkalis</h3>
+    <ul>
+      <li><strong>Acids:</strong> hydrochloric (HCl), sulfuric (H₂SO₄), nitric (HNO₃), citric, ethanoic (vinegar).</li>
+      <li><strong>Alkalis:</strong> sodium hydroxide (NaOH), calcium hydroxide / limewater, ammonia.</li>
+    </ul>
+
+    <h3>Acid/base properties of oxides</h3>
+    <ul>
+      <li><strong>Metal oxides</strong> are <em>basic</em> — they react with acids to form salts and water (e.g. magnesium oxide, copper oxide).</li>
+      <li><strong>Non-metal oxides</strong> are <em>acidic</em> — they dissolve in water to form acidic solutions (e.g. CO₂ in water gives carbonic acid; SO₂ gives sulfurous acid — links to acid rain).</li>
+    </ul>
+
+    <h3>Neutralisation</h3>
+    <p>An acid plus an alkali (or base) produces a neutral salt and water:</p>
+    <p style="text-align:center;"><span class="word-eq">acid + alkali → salt + water</span></p>
+    <p>The pH moves towards 7 as more alkali is added to acid (or vice versa).</p>
+
+    <div class="practical-box">
+      <strong>Practicals:</strong> testing acids and alkalis with litmus and Universal Indicator; measuring pH using Universal Indicator and a pH meter; adding alkali drop-by-drop to acid and tracking the change in pH.
+    </div>
+  </article>
+
+  <article class="topic-card" data-topic="neutral">
+    <h2>Neutralisation Reactions</h2>
+    <div class="topic-meta">Topic 12 · Reactions of acids with bases, metals and carbonates</div>
+
+    <h3>The four key reactions of acids</h3>
+    <p>Acids react with metals, alkalis, metal oxides and metal carbonates. All these reactions form <strong>salts</strong>.</p>
+
+    <ol>
+      <li><strong>Acid + metal → salt + hydrogen</strong><br>
+        <span class="word-eq">magnesium + sulfuric acid → magnesium sulfate + hydrogen</span> (fizzing — H₂ gas)</li>
+      <li><strong>Acid + alkali → salt + water</strong> (neutralisation)<br>
+        <span class="word-eq">hydrochloric acid + sodium hydroxide → sodium chloride + water</span></li>
+      <li><strong>Acid + metal oxide → salt + water</strong> (the metal oxide is a base)<br>
+        <span class="word-eq">sulfuric acid + copper oxide → copper sulfate + water</span></li>
+      <li><strong>Acid + metal carbonate → salt + water + carbon dioxide</strong> (fizzing — CO₂ gas)<br>
+        <span class="word-eq">hydrochloric acid + calcium carbonate → calcium chloride + water + carbon dioxide</span></li>
+    </ol>
+
+    <h3>Naming salts</h3>
+    <p>The salt's first name comes from the metal; the second name comes from the acid:</p>
+    <ul>
+      <li>Hydrochloric acid → <strong>chloride</strong> salts</li>
+      <li>Sulfuric acid → <strong>sulfate</strong> salts</li>
+      <li>Nitric acid → <strong>nitrate</strong> salts</li>
+    </ul>
+
+    <h3>Acidity in the environment</h3>
+    <p><strong>Acid rain</strong> is rain with a pH below about 5.6, caused by sulfur dioxide and nitrogen oxides from burning fossil fuels dissolving in atmospheric water. Effects:</p>
+    <ul>
+      <li>Damages stone buildings and statues — especially those made of <em>limestone</em> (calcium carbonate) or <em>marble</em>, which react with the acid.</li>
+      <li>Acidifies lakes and rivers, killing fish and other aquatic life.</li>
+      <li>Damages trees and leaches nutrients from soil.</li>
+    </ul>
+
+    <h3>Uses of limestone</h3>
+    <ul>
+      <li><strong>Building material</strong> — but vulnerable to acid rain.</li>
+      <li><strong>Agricultural lime</strong> — spread on fields to neutralise acidic soils, helping crops grow.</li>
+      <li><strong>Cement and concrete</strong> production.</li>
+    </ul>
+
+    <div class="practical-box">
+      <strong>Practical:</strong> reaction of an acid (e.g. HCl) with an alkali, a metal, a metal oxide, and a metal carbonate. Test the gases produced (limewater for CO₂; squeaky pop for H₂).
+    </div>
+  </article>
+</section>
+
+<!-- ═══════════════════════════ KEYWORDS PANEL ═══════════════════════════ -->
+<section class="panel" id="panel-keywords">
+  <div class="panel-intro">Essential vocabulary you should know for the 13+ Chemistry paper. Tap a topic above to filter.</div>
+  <div class="topic-list" id="kwTopics"></div>
+  <div class="keyword-grid" id="keywordGrid"></div>
+</section>
+
+<!-- ═══════════════════════════ FLASHCARDS PANEL ═══════════════════════════ -->
+<section class="panel" id="panel-flash">
+  <div class="panel-intro">Click a card to flip it. Use the arrows to move through the deck.</div>
+  <div class="topic-list" id="flashTopics"></div>
+  <div class="flash-area">
+    <div class="flash-card" id="flashCard" onclick="flipFlash()">
+      <span class="flash-side-label" id="flashSideLabel">Question</span>
+      <div class="flash-q" id="flashContent">Loading…</div>
+    </div>
+    <p class="flash-hint">Click the card to reveal the answer</p>
+    <div class="flash-controls">
+      <button class="btn" onclick="prevFlash()">← Previous</button>
+      <span class="counter" id="flashCounter">1 / 1</span>
+      <button class="btn primary" onclick="nextFlash()">Next →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ GAP FILL PANEL ═══════════════════════════ -->
+<section class="panel" id="panel-gap">
+  <div class="panel-intro">Type your answer in each gap. Press Enter to check, or click "Check All" at the bottom.</div>
+  <div id="gapList"></div>
+  <div style="text-align:center; margin-top: 20px;">
+    <button class="btn primary" onclick="checkAllGaps()">Check All</button>
+    <button class="btn" onclick="resetGaps()" style="margin-left: 8px;">Reset</button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ MCQ PANEL ═══════════════════════════ -->
+<section class="panel" id="panel-mcq">
+  <div class="progress">
+    <div class="progress-text">Score: <span id="mcqScore">0</span> / <span id="mcqTotal">0</span></div>
+    <div class="progress-bar"><div class="progress-fill" id="mcqProgress"></div></div>
+  </div>
+  <div id="mcqList"></div>
+</section>
+
+<!-- ═══════════════════════════ EXAM Qs PANEL ═══════════════════════════ -->
+<section class="panel" id="panel-exam">
+  <div class="panel-intro">Exam-style questions in the format of the 13+ Common Entrance / Common Academic Scholarship paper. Mark schemes are hidden — try the question first, then click to reveal.</div>
+  <div id="examList"></div>
+</section>
+
+</div>
+
+<script>
+// ═══════════════════════════ DATA ═══════════════════════════════════════════
+const TOPICS = [
+  { id:'states',     name:'States of Matter' },
+  { id:'atoms',      name:'Atoms & Elements' },
+  { id:'compounds',  name:'Compounds & Molecules' },
+  { id:'pure',       name:'Pure Substances' },
+  { id:'mixtures',   name:'Mixtures' },
+  { id:'separating', name:'Separating Mixtures' },
+  { id:'combustion', name:'Combustion' },
+  { id:'fuels',      name:'Fuels & CO₂' },
+  { id:'oxidation',  name:'Oxidation of Metals' },
+  { id:'thermal',    name:'Thermal Decomposition' },
+  { id:'acids',      name:'Acids & Alkalis' },
+  { id:'neutral',    name:'Neutralisation' }
+];
+
+const KEYWORDS = [
+  // States of matter
+  {term:'Particle model', def:"Theory that all matter is made of tiny particles whose arrangement and motion explain the properties of solids, liquids and gases.", topic:'states'},
+  {term:'Diffusion', def:"The spreading out of particles from a region of high concentration to one of low concentration, due to their random motion.", topic:'states'},
+  {term:'Sublimation', def:"A change of state directly from solid to gas (or gas to solid) without becoming a liquid (e.g. iodine, dry ice).", topic:'states'},
+  {term:'Gas pressure', def:"The force per unit area caused by gas particles colliding with the walls of their container.", topic:'states'},
+  {term:'Melting', def:"Change of state from solid to liquid.", topic:'states'},
+  {term:'Boiling', def:"Change of state from liquid to gas at the boiling point, throughout the liquid.", topic:'states'},
+  {term:'Evaporating', def:"Change of state from liquid to gas, occurring at the surface at any temperature.", topic:'states'},
+  {term:'Condensing', def:"Change of state from gas to liquid.", topic:'states'},
+  {term:'Freezing', def:"Change of state from liquid to solid.", topic:'states'},
+
+  // Atoms & elements
+  {term:'Atom', def:"The smallest particle of an element that can take part in a chemical reaction.", topic:'atoms'},
+  {term:'Element', def:"A pure substance made of only one type of atom; cannot be broken down into simpler substances by chemical means.", topic:'atoms'},
+  {term:'Symbol', def:"One or two letters representing one atom of an element (e.g. H, Cu, Fe).", topic:'atoms'},
+  {term:'Periodic Table', def:"A table arranging the ~100 elements in order of atomic number, into groups with similar properties.", topic:'atoms'},
+  {term:'Metal', def:"Element that is shiny, conducts heat and electricity, malleable and ductile (e.g. iron, copper).", topic:'atoms'},
+  {term:'Non-metal', def:"Element that is dull, a poor conductor (with the exception of graphite) and brittle if solid (e.g. sulfur).", topic:'atoms'},
+  {term:'Dalton model', def:"Simple atomic model: all matter is made of atoms; atoms cannot be created or destroyed in chemical reactions.", topic:'atoms'},
+
+  // Compounds
+  {term:'Compound', def:"A pure substance made of two or more different elements chemically joined together.", topic:'compounds'},
+  {term:'Molecule', def:"A particle made of two or more atoms chemically joined.", topic:'compounds'},
+  {term:'Formula', def:"A way of showing the elements and the ratio of atoms in a compound or molecule (e.g. H₂O).", topic:'compounds'},
+  {term:'Iron sulfide', def:"FeS — compound formed when iron and sulfur are heated together; not magnetic, unlike its iron component.", topic:'compounds'},
+
+  // Pure substances
+  {term:'Pure substance', def:"A substance made of only one type of particle (one element or one compound); has fixed melting and boiling points.", topic:'pure'},
+  {term:'Anomalous property of water', def:"Unusual property — water expands when it freezes, so ice is less dense than water and floats.", topic:'pure'},
+
+  // Mixtures
+  {term:'Mixture', def:"Two or more substances that are not chemically joined; properties are the same as those of the components.", topic:'mixtures'},
+  {term:'Solution', def:"A mixture of a solute dissolved in a solvent.", topic:'mixtures'},
+  {term:'Saturated solution', def:"A solution that has dissolved as much solute as it can at that temperature.", topic:'mixtures'},
+  {term:'Solute', def:"The substance that dissolves in a solvent (e.g. salt in salt water).", topic:'mixtures'},
+  {term:'Solvent', def:"The liquid that does the dissolving (e.g. water).", topic:'mixtures'},
+  {term:'Air', def:"A mixture of gases — about 78% nitrogen, 21% oxygen, 0.9% argon, 0.04% CO₂, plus water vapour.", topic:'mixtures'},
+
+  // Separating
+  {term:'Distillation', def:"Separates a liquid from a mixture by boiling and then condensing the vapour. Useful for separating substances with different boiling points (e.g. pure water from sea water).", topic:'separating'},
+  {term:'Distillate', def:"The pure liquid collected after condensation in distillation.", topic:'separating'},
+  {term:'Chromatography', def:"A technique that separates dissolved substances by how far they travel up paper in a solvent.", topic:'separating'},
+  {term:'Filtrate', def:"The liquid that passes through a filter.", topic:'separating'},
+  {term:'Residue', def:"The solid left behind on the filter paper during filtration.", topic:'separating'},
+
+  // Combustion
+  {term:'Combustion', def:"A chemical reaction in which a substance burns in oxygen, releasing heat and light.", topic:'combustion'},
+  {term:'Conservation of mass', def:"In a chemical reaction, atoms are rearranged but not created or destroyed; total mass is unchanged.", topic:'combustion'},
+  {term:'Test for oxygen', def:"A glowing splint relights when placed in oxygen.", topic:'combustion'},
+  {term:'Test for carbon dioxide', def:"Limewater turns from clear to milky (cloudy) when CO₂ is bubbled through it.", topic:'combustion'},
+  {term:'Test for hydrogen', def:"A lighted splint produces a squeaky pop in hydrogen.", topic:'combustion'},
+  {term:'Test for water', def:"Anhydrous (white) copper sulfate turns blue when water is added.", topic:'combustion'},
+  {term:'Word equation', def:"An equation written in words showing the reactants and products of a reaction (reactants → products).", topic:'combustion'},
+
+  // Fuels
+  {term:'Fuel', def:"A substance that releases energy when burned (e.g. methane, coal, petrol).", topic:'fuels'},
+  {term:'Hydrocarbon', def:"A compound containing only hydrogen and carbon (e.g. methane CH₄).", topic:'fuels'},
+  {term:'Fossil fuel', def:"Fuel formed from the remains of dead organisms millions of years ago — coal, crude oil and natural gas.", topic:'fuels'},
+  {term:'Climate change', def:"Long-term changes in the Earth's climate caused largely by increasing CO₂ from burning fossil fuels.", topic:'fuels'},
+  {term:'Carbon monoxide', def:"CO — toxic gas formed by incomplete combustion; colourless, odourless, prevents blood from carrying oxygen.", topic:'fuels'},
+  {term:'Acid rain', def:"Rain made acidic by sulfur dioxide and nitrogen oxides; damages buildings, trees and aquatic life.", topic:'fuels'},
+
+  // Oxidation
+  {term:'Oxidation', def:"A reaction in which a substance gains oxygen (or burns in oxygen) to form an oxide.", topic:'oxidation'},
+  {term:'Rust', def:"Hydrated iron(III) oxide — formed when iron reacts with both air (oxygen) and water.", topic:'oxidation'},
+  {term:'Galvanising', def:"Coating iron or steel with zinc to prevent rusting (the zinc corrodes preferentially).", topic:'oxidation'},
+
+  // Thermal decomposition
+  {term:'Thermal decomposition', def:"A reaction in which a compound is broken down into simpler substances by heating.", topic:'thermal'},
+  {term:'Anhydrous', def:"Without water (e.g. anhydrous copper sulfate is the white powder; adding water turns it blue).", topic:'thermal'},
+  {term:'Hydrated', def:"Containing water of crystallisation (e.g. blue hydrated copper sulfate, CuSO₄·5H₂O).", topic:'thermal'},
+
+  // Acids & alkalis
+  {term:'Acid', def:"A substance with pH below 7; turns litmus red. Contains H⁺ ions in solution.", topic:'acids'},
+  {term:'Alkali', def:"A soluble base — a substance with pH above 7 that turns litmus blue. Contains OH⁻ ions in solution.", topic:'acids'},
+  {term:'Neutral', def:"Solution with pH 7 (neither acidic nor alkaline) — e.g. pure water.", topic:'acids'},
+  {term:'pH scale', def:"A scale from 0–14 measuring how acidic or alkaline a solution is. 7 is neutral.", topic:'acids'},
+  {term:'Indicator', def:"A substance that changes colour to show whether a solution is acidic, neutral or alkaline (e.g. litmus, Universal Indicator).", topic:'acids'},
+  {term:'Universal Indicator', def:"A mixture of dyes that turns different colours across the pH range (red → green → purple).", topic:'acids'},
+  {term:'Base', def:"A substance that neutralises an acid (metal oxides and metal hydroxides are bases).", topic:'acids'},
+
+  // Neutralisation
+  {term:'Neutralisation', def:"The reaction of an acid with a base or alkali to produce a salt and water (pH moves towards 7).", topic:'neutral'},
+  {term:'Salt', def:"The compound formed when the hydrogen of an acid is replaced by a metal — e.g. NaCl, MgSO₄.", topic:'neutral'},
+  {term:'Limestone', def:"Calcium carbonate (CaCO₃) — a sedimentary rock used as a building material and in agriculture to neutralise acidic soils.", topic:'neutral'},
+  {term:'Agricultural lime', def:"Calcium hydroxide (or carbonate) added to soil to raise its pH and improve crop growth.", topic:'neutral'}
+];
+
+const FLASH = [
+  // States
+  {q:"Describe the arrangement and movement of particles in a solid.", a:"Particles are closely packed in a regular pattern; they vibrate in fixed positions but do not move past each other. Strong forces hold them together.", topic:'states'},
+  {q:"What causes the pressure of a gas?", a:"Gas particles colliding with the walls of the container. More frequent or harder collisions = higher pressure.", topic:'states'},
+  {q:"What is diffusion, and why does it happen?", a:"The spreading out of particles from high to low concentration, caused by the random motion of particles.", topic:'states'},
+  {q:"What is sublimation? Give one example.", a:"A change of state directly from solid to gas (or gas to solid) without becoming a liquid. Examples: iodine, dry ice (solid CO₂).", topic:'states'},
+  {q:"In which state is diffusion fastest, and why?", a:"In gases — particles move quickly and have lots of empty space to move through.", topic:'states'},
+
+  // Atoms & elements
+  {q:"What is an element?", a:"A pure substance made of only one type of atom; it cannot be broken down into simpler substances by chemical means.", topic:'atoms'},
+  {q:"How many elements are there in the Periodic Table?", a:"About 100 elements.", topic:'atoms'},
+  {q:"Give the symbols for: hydrogen, carbon, sodium, copper, iron, helium.", a:"H, C, Na, Cu, Fe, He.", topic:'atoms'},
+  {q:"State three physical properties typical of metals.", a:"Shiny (lustrous), good conductors of heat and electricity, malleable and ductile (also usually high density).", topic:'atoms'},
+  {q:"Which non-metal is an exception that conducts electricity?", a:"Carbon, in the form of graphite.", topic:'atoms'},
+
+  // Compounds
+  {q:"What is the difference between an element and a compound?", a:"An element is made of one type of atom only. A compound is made of two or more different elements chemically joined together.", topic:'compounds'},
+  {q:"Give the formulae of: water, carbon dioxide, methane, sodium chloride, sulfuric acid.", a:"H₂O, CO₂, CH₄, NaCl, H₂SO₄.", topic:'compounds'},
+  {q:"What is the formula of calcium carbonate?", a:"CaCO₃.", topic:'compounds'},
+  {q:"How many atoms of each element are in H₂SO₄?", a:"2 hydrogen atoms, 1 sulfur atom and 4 oxygen atoms (7 atoms in total).", topic:'compounds'},
+  {q:"How do the properties of iron sulfide differ from those of iron and sulfur?", a:"Iron sulfide is a new compound — it is not magnetic (unlike iron) and does not look or behave like sulfur. The compound has different properties from its elements.", topic:'compounds'},
+
+  // Pure substances
+  {q:"How can you tell whether a substance is pure from its melting point?", a:"A pure substance has a single, fixed melting point. An impure substance melts over a range of temperatures.", topic:'pure'},
+  {q:"What is the difference between boiling and evaporation?", a:"Boiling occurs at the boiling point throughout the liquid. Evaporation can happen at any temperature, only at the surface.", topic:'pure'},
+  {q:"State one anomalous property of water.", a:"Ice is less dense than liquid water, so ice floats. Water expands when it freezes, which is why water pipes can burst in winter.", topic:'pure'},
+
+  // Mixtures
+  {q:"What is a saturated solution?", a:"A solution that has dissolved as much solute as it can at that temperature — no more solute will dissolve.", topic:'mixtures'},
+  {q:"What is the approximate composition of air by volume?", a:"About 78% nitrogen, 21% oxygen, 0.9% argon, 0.04% CO₂, plus water vapour and traces of other gases.", topic:'mixtures'},
+  {q:"Give two uses of oxygen in everyday life or in living things.", a:"Respiration in living organisms; combustion (burning fuels). Also used in hospitals (breathing apparatus) and in welding/steel-making.", topic:'mixtures'},
+
+  // Separating
+  {q:"How does distillation separate a mixture?", a:"By boiling off the substance with the lower boiling point and condensing its vapour back to a pure liquid (the distillate). Substances with different boiling points are separated.", topic:'separating'},
+  {q:"What does chromatography separate, and how does it work?", a:"It separates dissolved (often coloured) substances. Substances move at different rates up the paper depending on their solubility in the solvent.", topic:'separating'},
+  {q:"You evaporate three samples to dryness: tap water, distilled water and sea water. What is left in each?", a:"Tap water: small amount of solid residue (dissolved minerals). Distilled (pure) water: nothing. Sea water: a lot of solid residue (mostly salt).", topic:'separating'},
+
+  // Combustion
+  {q:"What two flames does a Bunsen burner produce, and when is each used?", a:"Yellow (safety) flame — air hole closed, cool, sooty, used when not heating. Blue (roaring) flame — air hole open, hot, clean, used for heating.", topic:'combustion'},
+  {q:"What is the test for oxygen?", a:"A glowing splint relights in oxygen.", topic:'combustion'},
+  {q:"What is the test for carbon dioxide?", a:"Bubble the gas through limewater — it turns from clear to milky/cloudy.", topic:'combustion'},
+  {q:"What is the test for water using anhydrous copper sulfate?", a:"White anhydrous copper sulfate turns blue when water is added.", topic:'combustion'},
+  {q:"Why does the mass increase when magnesium burns?", a:"The magnesium combines with oxygen from the air to form magnesium oxide. The mass of oxygen added is gained, so the product weighs more than the starting metal. Mass is still conserved overall (including the oxygen).", topic:'combustion'},
+  {q:"State the law of conservation of mass.", a:"In a chemical reaction, atoms are rearranged — not created or destroyed. The total mass of products equals the total mass of reactants.", topic:'combustion'},
+
+  // Fuels
+  {q:"Name three fossil fuels.", a:"Coal, crude oil (petroleum), and natural gas.", topic:'fuels'},
+  {q:"Write the word equation for the complete combustion of methane.", a:"Methane + oxygen → carbon dioxide + water.", topic:'fuels'},
+  {q:"Why is carbon monoxide dangerous?", a:"It is colourless and odourless (so undetectable). It binds to haemoglobin in blood, preventing it from carrying oxygen — can be fatal.", topic:'fuels'},
+  {q:"How is acid rain formed?", a:"Sulfur dioxide (from burning fuels containing sulfur, especially coal) and nitrogen oxides dissolve in atmospheric water to form acidic rain.", topic:'fuels'},
+  {q:"Give two effects of acid rain.", a:"Damages buildings/statues (especially limestone and marble); kills aquatic life by acidifying lakes; damages forests/leaches nutrients from soil.", topic:'fuels'},
+
+  // Oxidation
+  {q:"What two substances are needed for iron to rust?", a:"Both air (oxygen) and water are needed. (Salt speeds it up.)", topic:'oxidation'},
+  {q:"Write the word equation for magnesium burning in oxygen.", a:"Magnesium + oxygen → magnesium oxide.", topic:'oxidation'},
+  {q:"Write the general word equation for a metal reacting with an acid.", a:"Metal + acid → salt + hydrogen.", topic:'oxidation'},
+  {q:"Give two methods of preventing rusting and explain how they work.", a:"Painting/oiling — creates a barrier excluding air and water. Galvanising — zinc coating corrodes preferentially (sacrificial protection), even if scratched.", topic:'oxidation'},
+
+  // Thermal decomposition
+  {q:"What is thermal decomposition?", a:"A chemical reaction in which a compound is broken down into simpler substances by heating.", topic:'thermal'},
+  {q:"Write the word equation for heating copper carbonate.", a:"Copper carbonate → copper oxide + carbon dioxide. (Green powder turns black; CO₂ produced.)", topic:'thermal'},
+  {q:"What colour change is seen when blue hydrated copper sulfate is heated?", a:"It turns from blue to white as water of crystallisation is driven off, leaving anhydrous copper sulfate.", topic:'thermal'},
+  {q:"Name a substance that does NOT decompose when heated.", a:"Copper oxide (CuO) — it stays the same when heated.", topic:'thermal'},
+
+  // Acids & alkalis
+  {q:"What is the pH of a neutral solution?", a:"pH 7 (e.g. pure water).", topic:'acids'},
+  {q:"What colour does litmus turn in (a) acid (b) alkali?", a:"(a) Red in acid. (b) Blue in alkali. Purple if neutral.", topic:'acids'},
+  {q:"What colours does Universal Indicator show across the pH range?", a:"Red/orange/yellow in acid; green at neutral (pH 7); blue/purple in alkali. Lower pH = stronger acid; higher pH = stronger alkali.", topic:'acids'},
+  {q:"Are metal oxides acidic or basic? Give an example.", a:"Basic. Example: magnesium oxide (MgO) reacts with acids to form a salt and water.", topic:'acids'},
+  {q:"Are non-metal oxides acidic or basic? Give an example.", a:"Acidic. Example: carbon dioxide (CO₂) dissolves in water to give a weakly acidic solution (carbonic acid).", topic:'acids'},
+
+  // Neutralisation
+  {q:"What is the general equation for acid + alkali?", a:"Acid + alkali → salt + water. (This is neutralisation.)", topic:'neutral'},
+  {q:"What is produced when an acid reacts with a metal carbonate?", a:"Salt + water + carbon dioxide. (You see fizzing as CO₂ is released.)", topic:'neutral'},
+  {q:"What salt is made from sulfuric acid and copper oxide?", a:"Copper sulfate (and water).", topic:'neutral'},
+  {q:"Why is acid rain damaging to limestone buildings?", a:"Limestone is calcium carbonate; it reacts with acid (acid + carbonate → salt + water + CO₂), so the stone is gradually worn away.", topic:'neutral'},
+  {q:"How is limestone used in agriculture?", a:"As agricultural lime to neutralise acidic soils, helping crops grow.", topic:'neutral'}
+];
+
+const GAPS = [
+  {q:"In a solid, particles are closely packed and ___1___ in fixed positions.", slots:[['vibrate']]},
+  {q:"The pressure of a gas is caused by particles colliding with the ___1___ of the container.", slots:[['walls','wall','sides']]},
+  {q:"___1___ is the change of state directly from solid to gas without becoming a liquid.", slots:[['sublimation']]},
+  {q:"An ___1___ is a substance made of only one type of atom.", slots:[['element']]},
+  {q:"The chemical symbol for sodium is ___1___ and the symbol for copper is ___2___.", slots:[['Na','na'],['Cu','cu']]},
+  {q:"A compound is two or more different elements ___1___ joined together.", slots:[['chemically']]},
+  {q:"The formula H₂SO₄ contains ___1___ atoms in total (count all the atoms).", slots:[['7','seven']]},
+  {q:"A pure substance has a fixed melting point and a fixed ___1___ point.", slots:[['boiling']]},
+  {q:"Ice ___1___ on water because ice is less dense than liquid water.", slots:[['floats','rises']]},
+  {q:"Air contains approximately ___1___ % oxygen and ___2___ % nitrogen.", slots:[['21','21%','twenty-one'],['78','78%','seventy-eight']]},
+  {q:"In distillation, the vapour is cooled and turns back to a liquid in the ___1___.", slots:[['condenser']]},
+  {q:"The pure liquid collected at the end of distillation is called the ___1___.", slots:[['distillate']]},
+  {q:"In chromatography, the substances are separated as the ___1___ moves up the paper.", slots:[['solvent']]},
+  {q:"When magnesium burns in oxygen it forms magnesium ___1___.", slots:[['oxide']]},
+  {q:"The test for oxygen is that a ___1___ splint relights.", slots:[['glowing']]},
+  {q:"Limewater turns ___1___ when carbon dioxide is bubbled through it.", slots:[['milky','cloudy','milky/cloudy']]},
+  {q:"Hydrogen gas burns with a ___1___ pop when a lighted splint is held to it.", slots:[['squeaky']]},
+  {q:"In a chemical reaction, atoms are rearranged — total mass is ___1___.", slots:[['conserved','the same','unchanged','equal']]},
+  {q:"Burning fossil fuels releases ___1___ dioxide, a greenhouse gas linked to climate change.", slots:[['carbon']]},
+  {q:"Sulfur dioxide and nitrogen oxides dissolve in rain to form ___1___ rain.", slots:[['acid']]},
+  {q:"Iron rusts only when both ___1___ and water are present.", slots:[['air','oxygen']]},
+  {q:"Coating iron with zinc to prevent rusting is called ___1___.", slots:[['galvanising','galvanizing','galvanisation']]},
+  {q:"Heating copper carbonate produces copper oxide and carbon ___1___.", slots:[['dioxide']]},
+  {q:"When blue hydrated copper sulfate is heated, it turns ___1___ as water is driven off.", slots:[['white']]},
+  {q:"A solution with pH 7 is described as ___1___.", slots:[['neutral']]},
+  {q:"On the pH scale, a value below 7 indicates an ___1___ and a value above 7 indicates an ___2___.", slots:[['acid','acidic'],['alkali','alkaline','base']]},
+  {q:"Metal oxides are ___1___ — they react with acids to form a salt and water.", slots:[['basic','bases','base']]},
+  {q:"Acid + alkali → ___1___ + water.", slots:[['salt']]},
+  {q:"When an acid reacts with a metal carbonate, the products are a salt, water and ___1___.", slots:[['carbon dioxide','co2','co₂']]},
+  {q:"Limestone is the common name for calcium ___1___.", slots:[['carbonate']]}
+];
+
+const MCQS = [
+  // States
+  {q:"In which state of matter do particles vibrate in fixed positions?", opts:["Solid","Liquid","Gas","Plasma"], ans:0, exp:"In a solid, the particles are closely packed in fixed positions and only vibrate. In liquids and gases they can move past each other."},
+  {q:"What causes the pressure of a gas in a sealed container?", opts:["Particles attracting the walls","Particles colliding with the walls","Particles dissolving in the walls","Particles condensing"], ans:1, exp:"Gas pressure is caused by particles colliding with the container walls. More frequent or harder collisions = higher pressure."},
+  {q:"Which change of state takes a substance directly from solid to gas?", opts:["Melting","Boiling","Condensing","Sublimation"], ans:3, exp:"Sublimation is the direct change from solid to gas (e.g. iodine, dry ice)."},
+  {q:"Why does diffusion not occur in solids?", opts:["Solids have no particles","Particles in solids cannot move past each other","Solids are too cold","Solid particles are too small"], ans:1, exp:"In solids, particles are held in fixed positions by strong forces — they can only vibrate, not move past each other, so diffusion does not happen."},
+
+  // Atoms & elements
+  {q:"Approximately how many elements are in the Periodic Table?", opts:["10","100","1000","10,000"], ans:1, exp:"There are about 100 elements in the Periodic Table."},
+  {q:"Which is the correct symbol for iron?", opts:["I","Ir","Fe","In"], ans:2, exp:"Iron's symbol is Fe (from the Latin 'ferrum')."},
+  {q:"Which property is typical of a metal?", opts:["Dull surface","Poor electrical conductor","Brittle when solid","Good conductor of heat and electricity"], ans:3, exp:"Metals are typically shiny, malleable, ductile, and good conductors of heat and electricity."},
+  {q:"Which non-metal is an exception that DOES conduct electricity?", opts:["Sulfur","Carbon (graphite)","Iodine","Oxygen"], ans:1, exp:"Graphite (a form of carbon) conducts electricity because of its delocalised electrons — unusual for a non-metal."},
+
+  // Compounds
+  {q:"How many atoms of oxygen are in one molecule of H₂SO₄?", opts:["1","2","4","8"], ans:2, exp:"H₂SO₄ contains 4 oxygen atoms — the subscript 4 after the O."},
+  {q:"What is the formula of carbon dioxide?", opts:["CO","CO₂","C₂O","C₂O₂"], ans:1, exp:"Carbon dioxide is CO₂ — one carbon atom and two oxygen atoms."},
+  {q:"Which statement about iron sulfide (FeS) is TRUE?", opts:["It is magnetic, like iron","It looks identical to a Fe/S mixture","It has different properties from both iron and sulfur","It can be separated using a magnet"], ans:2, exp:"Iron sulfide is a compound — it has new properties (e.g. it is not magnetic), unlike a simple iron-sulfur mixture which would still contain magnetic iron filings."},
+
+  // Pure substances
+  {q:"Pure water boils at:", opts:["0 °C","50 °C","100 °C","Over a range of temperatures"], ans:2, exp:"Pure water has a fixed boiling point of 100 °C (at atmospheric pressure). Impure water boils over a range and at a higher temperature."},
+  {q:"Why does ice float on water?", opts:["Ice is warmer than water","Ice is less dense than water","Ice contains air","Ice is a different substance"], ans:1, exp:"Water is anomalous — it expands when it freezes. Ice is therefore less dense than liquid water, so it floats."},
+
+  // Mixtures
+  {q:"Which gas makes up the largest proportion of air?", opts:["Oxygen","Carbon dioxide","Nitrogen","Argon"], ans:2, exp:"Air is about 78% nitrogen, 21% oxygen, 0.9% argon and 0.04% CO₂."},
+  {q:"A saturated solution is one that:", opts:["Contains no solute","Will dissolve more solute when stirred","Has dissolved as much solute as it can at that temperature","Always contains water"], ans:2, exp:"A saturated solution has reached its limit at that temperature — adding more solute will not dissolve."},
+
+  // Separating
+  {q:"Which technique would best separate pure water from sea water?", opts:["Filtration","Distillation","Chromatography","Decanting"], ans:1, exp:"Distillation boils off the water and condenses the pure vapour back to liquid, leaving the salt behind. Filtration cannot separate dissolved salt from water."},
+  {q:"In paper chromatography, substances separate because:", opts:["The paper dissolves them","Different substances move different distances up the paper in the solvent","The solvent only dissolves coloured substances","The substances react with the paper"], ans:1, exp:"Different substances have different solubilities in the solvent and stick to the paper differently, so they move different distances up the paper."},
+  {q:"Evaporating tap water leaves a small white residue. What does this show?", opts:["Tap water is pure","Tap water contains dissolved minerals","The water did not boil","Tap water is sea water"], ans:1, exp:"Tap water contains small amounts of dissolved minerals (and other compounds), which are left behind when the water evaporates. Pure (distilled) water leaves no residue."},
+
+  // Combustion
+  {q:"Which test confirms that a gas is oxygen?", opts:["A lighted splint pops","Limewater turns milky","A glowing splint relights","Damp blue litmus turns red"], ans:2, exp:"A glowing splint relights when placed into oxygen — only oxygen does this."},
+  {q:"What is the test for water?", opts:["It turns limewater milky","It turns anhydrous copper sulfate from white to blue","It turns blue litmus red","It pops with a lighted splint"], ans:1, exp:"Anhydrous copper sulfate is white; adding water turns it blue. (This is also why heating hydrated copper sulfate turns it from blue to white.)"},
+  {q:"When magnesium burns, the mass of the product is greater than the mass of the magnesium. Why?", opts:["Magnesium expands when heated","Oxygen from the air has been added","Some magnesium has evaporated","Mass is not conserved"], ans:1, exp:"Magnesium combines with oxygen to form magnesium oxide. The added oxygen accounts for the mass increase. (Total mass IS conserved if you include the oxygen.)"},
+
+  // Fuels
+  {q:"Which gas is the main contributor to climate change from burning fossil fuels?", opts:["Carbon monoxide","Carbon dioxide","Sulfur dioxide","Nitrogen"], ans:1, exp:"Carbon dioxide (CO₂) is a greenhouse gas. Its rising atmospheric concentration from fossil-fuel burning is the main cause of human-driven climate change."},
+  {q:"Why is carbon monoxide especially dangerous?", opts:["It explodes spontaneously","It is colourless and odourless, and stops blood carrying oxygen","It only affects plants","It is highly acidic"], ans:1, exp:"Carbon monoxide cannot be seen or smelled, and it binds to haemoglobin so blood cannot carry oxygen — it can be fatal even at low concentrations."},
+  {q:"Sulfur dioxide is produced when which type of fuel is burned?", opts:["Pure hydrogen","Fuels containing sulfur (especially coal)","Solar energy","Wind energy"], ans:1, exp:"SO₂ is formed when sulfur impurities in fuels (especially coal) burn. It contributes to acid rain."},
+
+  // Oxidation
+  {q:"What TWO substances are needed for iron to rust?", opts:["Air and water","Acid and water","Salt only","Heat only"], ans:0, exp:"Both oxygen (from air) and water are needed for rusting. Salt accelerates it but is not essential."},
+  {q:"Galvanising prevents rusting because:", opts:["Zinc seals the iron from air","Zinc forms a barrier and corrodes preferentially even if scratched","Zinc heats the iron","Zinc reacts with iron"], ans:1, exp:"Zinc both forms a barrier AND, being more reactive than iron, corrodes first if the coating is scratched (sacrificial protection)."},
+  {q:"What is the correct general word equation for a metal reacting with an acid?", opts:["Metal + acid → metal oxide + water","Metal + acid → salt + hydrogen","Metal + acid → salt + oxygen","Metal + acid → salt + carbon dioxide"], ans:1, exp:"Metal + acid → salt + hydrogen. The hydrogen produces fizzing and gives a squeaky pop with a lighted splint."},
+
+  // Thermal
+  {q:"Heating green copper carbonate produces:", opts:["Copper oxide and oxygen","Copper oxide and carbon dioxide","Copper and water","Copper sulfate and water"], ans:1, exp:"Copper carbonate → copper oxide (black) + carbon dioxide. The CO₂ can be tested with limewater."},
+  {q:"Which substance does NOT decompose when heated?", opts:["Copper carbonate","Hydrated copper sulfate","Calcium carbonate","Copper oxide"], ans:3, exp:"Copper oxide is stable to heat — it doesn't decompose. The carbonates and hydrated copper sulfate all decompose on heating."},
+
+  // Acids
+  {q:"Which is the pH of a strongly alkaline solution?", opts:["1","5","7","13"], ans:3, exp:"pH 13 is strongly alkaline. pH 7 is neutral; pH 1 is strongly acidic."},
+  {q:"In which colour does Universal Indicator appear in a neutral solution?", opts:["Red","Yellow","Green","Purple"], ans:2, exp:"Universal Indicator is green in neutral solutions (pH 7), reddish in acids and bluish/purple in alkalis."},
+  {q:"Which type of oxide tends to be acidic?", opts:["Metal oxide","Non-metal oxide","All oxides","No oxides"], ans:1, exp:"Non-metal oxides (e.g. CO₂, SO₂) dissolve in water to form acidic solutions. Metal oxides are basic."},
+
+  // Neutralisation
+  {q:"Acid + alkali →", opts:["Salt + hydrogen","Salt + water","Salt + carbon dioxide","Hydrogen + oxygen"], ans:1, exp:"Acid + alkali → salt + water. This is neutralisation."},
+  {q:"Which gas is produced when an acid reacts with a metal carbonate?", opts:["Hydrogen","Oxygen","Carbon dioxide","Nitrogen"], ans:2, exp:"Acid + metal carbonate → salt + water + carbon dioxide. The fizzing is the CO₂ being released."},
+  {q:"Why does acid rain damage limestone buildings?", opts:["The acid evaporates the stone","Limestone is calcium carbonate, which reacts with acid","Limestone is acidic itself","Acid rain freezes inside the stone"], ans:1, exp:"Limestone is calcium carbonate (CaCO₃). It reacts with the acid in acid rain (carbonate + acid → salt + water + CO₂), so the stone slowly wears away."},
+  {q:"What is agricultural lime used for?", opts:["To make crops grow taller directly","To neutralise acidic soils so crops grow better","To kill weeds","To attract bees"], ans:1, exp:"Agricultural lime (calcium hydroxide or carbonate) is added to acidic soils to raise their pH towards neutral, helping crops grow."}
+];
+
+const EXAM_QS = [
+  {
+    n: "1.",
+    marks: 6,
+    q: `<p>A pupil investigates the diffusion of two gases. They place cotton wool soaked in concentrated ammonia at one end of a long glass tube, and cotton wool soaked in concentrated hydrochloric acid at the other end. After a few minutes a white ring of solid forms inside the tube.</p>
+        <ol type="a">
+          <li>Explain, using the particle model, why the ring of white solid eventually appears. <em>(2 marks)</em></li>
+          <li>The white ring forms closer to the hydrochloric acid end of the tube. Suggest why. <em>(2 marks)</em></li>
+          <li>Predict what would happen to the rate of diffusion if the experiment were carried out at a higher temperature. Explain your answer. <em>(2 marks)</em></li>
+        </ol>`,
+    ms: `<strong>Mark scheme:</strong>
+      <ul>
+        <li><strong>(a)</strong> Particles of ammonia (gas) and hydrochloric acid (gas) move randomly / spread out by diffusion <span class="mark">(1)</span>; they meet inside the tube and react to form a (white) solid <span class="mark">(1)</span>.</li>
+        <li><strong>(b)</strong> Ammonia particles diffuse faster than hydrochloric acid particles <span class="mark">(1)</span>; so the ammonia travels further before they meet, forming the ring closer to the slower (HCl) end <span class="mark">(1)</span>. <em>Accept "ammonia particles are lighter / smaller mass".</em></li>
+        <li><strong>(c)</strong> Diffusion would be faster <span class="mark">(1)</span>; because the particles have more (kinetic) energy and move more quickly at higher temperatures <span class="mark">(1)</span>.</li>
+      </ul>`
+  },
+  {
+    n: "2.",
+    marks: 7,
+    q: `<p>The table shows information about four substances.</p>
+       <table style="width:100%; border-collapse: collapse; margin: 10px 0; font-size: 0.9rem;">
+         <tr style="background: var(--flask-pale);"><th style="padding:6px; text-align:left;">Substance</th><th style="padding:6px;">Conducts electricity?</th><th style="padding:6px;">Appearance</th></tr>
+         <tr><td style="padding:6px;">A</td><td style="padding:6px;">Yes</td><td style="padding:6px;">Shiny grey solid</td></tr>
+         <tr><td style="padding:6px;">B</td><td style="padding:6px;">No</td><td style="padding:6px;">Yellow powder</td></tr>
+         <tr><td style="padding:6px;">C</td><td style="padding:6px;">Yes</td><td style="padding:6px;">Dull black solid (non-metal)</td></tr>
+         <tr><td style="padding:6px;">D</td><td style="padding:6px;">No</td><td style="padding:6px;">Colourless gas</td></tr>
+       </table>
+        <ol type="a">
+          <li>Which substance is most likely to be a metal? Give a reason. <em>(2 marks)</em></li>
+          <li>Suggest the identity of substance C. Explain your reasoning. <em>(2 marks)</em></li>
+          <li>State the formula of: (i) water, (ii) sodium chloride, (iii) sulfuric acid. <em>(3 marks)</em></li>
+        </ol>`,
+    ms: `<strong>Mark scheme:</strong>
+      <ul>
+        <li><strong>(a)</strong> Substance A <span class="mark">(1)</span>; because it is shiny and conducts electricity (typical metal properties) <span class="mark">(1)</span>.</li>
+        <li><strong>(b)</strong> Carbon / graphite <span class="mark">(1)</span>; because it is a non-metal but conducts electricity — graphite is the only common non-metal conductor <span class="mark">(1)</span>.</li>
+        <li><strong>(c)</strong> (i) H₂O <span class="mark">(1)</span>; (ii) NaCl <span class="mark">(1)</span>; (iii) H₂SO₄ <span class="mark">(1)</span>.</li>
+      </ul>`
+  },
+  {
+    n: "3.",
+    marks: 6,
+    q: `<p>A pupil heats some green copper carbonate powder in a test tube. The gas given off is bubbled through limewater.</p>
+        <ol type="a">
+          <li>Describe what the pupil would observe in (i) the test tube and (ii) the limewater. <em>(2 marks)</em></li>
+          <li>Write a word equation for the reaction taking place in the test tube. <em>(2 marks)</em></li>
+          <li>State the name of this type of reaction. <em>(1 mark)</em></li>
+          <li>If 5.0 g of copper carbonate is heated to completion, will the mass in the test tube be more, less, or the same as 5.0 g? Explain your answer. <em>(1 mark)</em></li>
+        </ol>`,
+    ms: `<strong>Mark scheme:</strong>
+      <ul>
+        <li><strong>(a)</strong> (i) The green powder turns black <span class="mark">(1)</span>; (ii) the limewater turns from clear/colourless to milky/cloudy <span class="mark">(1)</span>.</li>
+        <li><strong>(b)</strong> Copper carbonate → copper oxide + carbon dioxide <span class="mark">(2)</span>. <em>Award 1 mark for correct reactant or product if equation incomplete.</em></li>
+        <li><strong>(c)</strong> Thermal decomposition <span class="mark">(1)</span>.</li>
+        <li><strong>(d)</strong> Less than 5.0 g <span class="mark">(1)</span>; because the carbon dioxide gas escapes from the test tube. <em>Accept "mass of solid decreases" but mass overall is conserved if gas is included.</em></li>
+      </ul>`
+  },
+  {
+    n: "4.",
+    marks: 7,
+    q: `<p>A pupil sets up three test tubes to investigate rusting. Each contains a clean iron nail.</p>
+        <ul>
+          <li><strong>Tube X:</strong> nail in dry air (with calcium chloride to absorb water).</li>
+          <li><strong>Tube Y:</strong> nail in boiled water with a layer of oil on top (to keep air out).</li>
+          <li><strong>Tube Z:</strong> nail in tap water exposed to air.</li>
+        </ul>
+        <ol type="a">
+          <li>Predict, with reasons, in which tube(s) the nail will rust after a week. <em>(3 marks)</em></li>
+          <li>What conclusion can the pupil draw about rusting from this experiment? <em>(2 marks)</em></li>
+          <li>Suggest <strong>two</strong> ways of preventing rusting on a garden gate, and explain how each works. <em>(2 marks)</em></li>
+        </ol>`,
+    ms: `<strong>Mark scheme:</strong>
+      <ul>
+        <li><strong>(a)</strong> Tube X — no rust (no water) <span class="mark">(1)</span>; Tube Y — no rust (no air/oxygen) <span class="mark">(1)</span>; Tube Z — rusts (both air and water present) <span class="mark">(1)</span>.</li>
+        <li><strong>(b)</strong> Both air (oxygen) AND water are needed for rusting <span class="mark">(1)</span>; either one alone is not enough <span class="mark">(1)</span>.</li>
+        <li><strong>(c)</strong> Any two methods, with explanation: painting / oiling — forms a barrier excluding air and water <span class="mark">(1)</span>; galvanising (coating with zinc) — zinc corrodes preferentially even if scratched <span class="mark">(1)</span>. <em>Accept coating with plastic, alloying (stainless steel), greasing.</em></li>
+      </ul>`
+  },
+  {
+    n: "5.",
+    marks: 6,
+    q: `<p>A pupil burns a piece of magnesium ribbon in air using tongs. They then weigh the white powder formed and compare it with the original mass.</p>
+        <ol type="a">
+          <li>Describe what is observed during the burning. <em>(2 marks)</em></li>
+          <li>Write a word equation for the reaction. <em>(2 marks)</em></li>
+          <li>The pupil notices that the mass of the powder is greater than the mass of the magnesium they started with. Explain why this is consistent with the law of conservation of mass. <em>(2 marks)</em></li>
+        </ol>`,
+    ms: `<strong>Mark scheme:</strong>
+      <ul>
+        <li><strong>(a)</strong> Bright white flame / brilliant white light <span class="mark">(1)</span>; white powder/solid (magnesium oxide) is formed <span class="mark">(1)</span>.</li>
+        <li><strong>(b)</strong> Magnesium + oxygen → magnesium oxide <span class="mark">(2)</span>. <em>Award 1 mark for correct reactant or product if equation incomplete.</em></li>
+        <li><strong>(c)</strong> The magnesium has gained mass because it has combined with oxygen from the air <span class="mark">(1)</span>; if the oxygen is included as a reactant, the total mass of (Mg + O₂) before equals the total mass of MgO after — atoms are not created or destroyed <span class="mark">(1)</span>.</li>
+      </ul>`
+  },
+  {
+    n: "6.",
+    marks: 8,
+    q: `<p>A pupil tests four solutions A, B, C and D using Universal Indicator. The colours observed are shown.</p>
+        <table style="width:100%; border-collapse: collapse; margin: 10px 0; font-size: 0.9rem;">
+          <tr style="background: var(--flask-pale);"><th style="padding:6px; text-align:left;">Solution</th><th style="padding:6px;">Colour</th><th style="padding:6px;">Approx. pH</th></tr>
+          <tr><td style="padding:6px;">A</td><td style="padding:6px;">Red</td><td style="padding:6px;">2</td></tr>
+          <tr><td style="padding:6px;">B</td><td style="padding:6px;">Green</td><td style="padding:6px;">7</td></tr>
+          <tr><td style="padding:6px;">C</td><td style="padding:6px;">Yellow</td><td style="padding:6px;">5</td></tr>
+          <tr><td style="padding:6px;">D</td><td style="padding:6px;">Purple</td><td style="padding:6px;">13</td></tr>
+        </table>
+        <ol type="a">
+          <li>Which solution is the strongest acid? <em>(1 mark)</em></li>
+          <li>Which solution is neutral? <em>(1 mark)</em></li>
+          <li>The pupil mixes equal volumes of solutions A and D. Predict and explain the resulting pH. <em>(2 marks)</em></li>
+          <li>Solution A is hydrochloric acid. The pupil adds magnesium ribbon to it. Write a word equation for the reaction and describe one observation. <em>(3 marks)</em></li>
+          <li>Suggest the name of solution D. <em>(1 mark)</em></li>
+        </ol>`,
+    ms: `<strong>Mark scheme:</strong>
+      <ul>
+        <li><strong>(a)</strong> A <span class="mark">(1)</span>. <em>Lowest pH = strongest acid.</em></li>
+        <li><strong>(b)</strong> B <span class="mark">(1)</span>.</li>
+        <li><strong>(c)</strong> The acid and alkali would neutralise each other <span class="mark">(1)</span>; resulting pH would be approximately 7 (neutral) <span class="mark">(1)</span>. <em>Accept "close to 7" / "near neutral".</em></li>
+        <li><strong>(d)</strong> Magnesium + hydrochloric acid → magnesium chloride + hydrogen <span class="mark">(2)</span>; observation: fizzing / bubbles of gas / magnesium disappears / heat released <span class="mark">(1)</span>.</li>
+        <li><strong>(e)</strong> Sodium hydroxide / NaOH (or any reasonable strong alkali, e.g. potassium hydroxide) <span class="mark">(1)</span>.</li>
+      </ul>`
+  },
+  {
+    n: "7.",
+    marks: 6,
+    q: `<p>A pupil performs paper chromatography on three felt-tip pen inks (1, 2 and 3) using water as the solvent. The chromatogram shows that ink 1 separates into two spots (red and blue), ink 2 produces only a green spot, and ink 3 produces a red spot and a green spot.</p>
+        <ol type="a">
+          <li>Explain why the spots must be drawn in pencil, not pen, on the chromatography paper. <em>(1 mark)</em></li>
+          <li>Why must the start line be above the level of the solvent? <em>(1 mark)</em></li>
+          <li>Which ink(s) appear to be pure substances? Explain your answer. <em>(2 marks)</em></li>
+          <li>The pupil suggests that ink 3 contains the same red dye as ink 1. How could the chromatogram be used to support or disprove this? <em>(2 marks)</em></li>
+        </ol>`,
+    ms: `<strong>Mark scheme:</strong>
+      <ul>
+        <li><strong>(a)</strong> Pencil (graphite) does not dissolve in the solvent / would not move up the paper, so it won't interfere with the result <span class="mark">(1)</span>.</li>
+        <li><strong>(b)</strong> If the start line were below the solvent level, the spots would dissolve straight into the solvent rather than travel up the paper <span class="mark">(1)</span>.</li>
+        <li><strong>(c)</strong> Ink 2 only — it produces a single spot <span class="mark">(1)</span>; pure substances give one spot, mixtures give more than one <span class="mark">(1)</span>.</li>
+        <li><strong>(d)</strong> Compare the distances travelled by the red spot in ink 1 and the red spot in ink 3 <span class="mark">(1)</span>; if they are at the same height (same R<sub>f</sub>), they are likely the same dye; if at different heights, they are different dyes <span class="mark">(1)</span>.</li>
+      </ul>`
+  },
+  {
+    n: "8.",
+    marks: 7,
+    q: `<p>A pupil reacts excess hydrochloric acid with calcium carbonate (limestone) chips in a beaker on a balance, and records the loss of mass over time.</p>
+        <ol type="a">
+          <li>Write a word equation for the reaction. <em>(2 marks)</em></li>
+          <li>Suggest why the mass on the balance decreases during the reaction. <em>(1 mark)</em></li>
+          <li>Describe how the pupil could test for the gas produced. State the result of a positive test. <em>(2 marks)</em></li>
+          <li>This reaction is similar to the effect of acid rain on limestone buildings. Explain how acid rain is formed and why it damages limestone. <em>(2 marks)</em></li>
+        </ol>`,
+    ms: `<strong>Mark scheme:</strong>
+      <ul>
+        <li><strong>(a)</strong> Hydrochloric acid + calcium carbonate → calcium chloride + water + carbon dioxide <span class="mark">(2)</span>. <em>Award 1 mark for partially correct equation.</em></li>
+        <li><strong>(b)</strong> Carbon dioxide gas is released and escapes from the beaker, so the mass on the balance decreases <span class="mark">(1)</span>.</li>
+        <li><strong>(c)</strong> Bubble the gas through limewater <span class="mark">(1)</span>; limewater turns from clear/colourless to milky/cloudy <span class="mark">(1)</span>.</li>
+        <li><strong>(d)</strong> Acid rain forms when sulfur dioxide (and/or nitrogen oxides) from burning fossil fuels dissolve in atmospheric water <span class="mark">(1)</span>; the acidic rain reacts with the calcium carbonate in limestone, slowly wearing the stone away <span class="mark">(1)</span>.</li>
+      </ul>`
+  }
+];
+
+// ═══════════════════════════ TAB SWITCHING ══════════════════════════════════
+document.querySelectorAll('.tab').forEach(t => {
+  t.onclick = () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById('panel-' + t.dataset.panel).classList.add('active');
+  };
+});
+
+// ═══════════════════════════ LEARN PANEL ════════════════════════════════════
+function buildLearnTopics() {
+  const nav = document.getElementById('learnTopics');
+  nav.innerHTML = '';
+  TOPICS.forEach((t, i) => {
+    const b = document.createElement('button');
+    b.className = 'topic-pill' + (i === 0 ? ' active' : '');
+    b.textContent = t.name;
+    b.onclick = () => {
+      document.querySelectorAll('#learnTopics .topic-pill').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      document.querySelectorAll('.topic-card').forEach(c => c.classList.remove('active'));
+      document.querySelector(`.topic-card[data-topic="${t.id}"]`).classList.add('active');
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    };
+    nav.appendChild(b);
+  });
+}
+buildLearnTopics();
+
+// ═══════════════════════════ KEYWORDS PANEL ═════════════════════════════════
+let kwFilter = 'all';
+function buildKwTopics() {
+  const nav = document.getElementById('kwTopics');
+  nav.innerHTML = '';
+  const all = document.createElement('button');
+  all.className = 'topic-pill active';
+  all.textContent = 'All';
+  all.onclick = () => filterKw('all', all);
+  nav.appendChild(all);
+  TOPICS.forEach(t => {
+    const b = document.createElement('button');
+    b.className = 'topic-pill';
+    b.textContent = t.name;
+    b.onclick = () => filterKw(t.id, b);
+    nav.appendChild(b);
+  });
+}
+function filterKw(topicId, btn) {
+  kwFilter = topicId;
+  document.querySelectorAll('#kwTopics .topic-pill').forEach(x => x.classList.remove('active'));
+  btn.classList.add('active');
+  renderKeywords();
+}
+function renderKeywords() {
+  const grid = document.getElementById('keywordGrid');
+  grid.innerHTML = '';
+  const filtered = kwFilter === 'all' ? KEYWORDS : KEYWORDS.filter(k => k.topic === kwFilter);
+  filtered.forEach(k => {
+    const topicName = TOPICS.find(t => t.id === k.topic)?.name || '';
+    const card = document.createElement('div');
+    card.className = 'kw-card';
+    card.innerHTML = `
+      <div class="kw-term">${k.term}</div>
+      <div class="kw-def">${k.def}</div>
+      <div class="kw-topic">${topicName}</div>`;
+    grid.appendChild(card);
+  });
+}
+buildKwTopics();
+renderKeywords();
+
+// ═══════════════════════════ FLASHCARDS ═════════════════════════════════════
+let flashFilter = 'all';
+let flashIdx = 0;
+let flashFlipped = false;
+let flashDeck = [...FLASH];
+
+function buildFlashTopics() {
+  const nav = document.getElementById('flashTopics');
+  nav.innerHTML = '';
+  const all = document.createElement('button');
+  all.className = 'topic-pill active';
+  all.textContent = 'All';
+  all.onclick = () => filterFlash('all', all);
+  nav.appendChild(all);
+  TOPICS.forEach(t => {
+    const b = document.createElement('button');
+    b.className = 'topic-pill';
+    b.textContent = t.name;
+    b.onclick = () => filterFlash(t.id, b);
+    nav.appendChild(b);
+  });
+}
+function filterFlash(topicId, btn) {
+  flashFilter = topicId;
+  document.querySelectorAll('#flashTopics .topic-pill').forEach(x => x.classList.remove('active'));
+  btn.classList.add('active');
+  flashDeck = topicId === 'all' ? [...FLASH] : FLASH.filter(f => f.topic === topicId);
+  flashIdx = 0;
+  flashFlipped = false;
+  renderFlash();
+}
+function renderFlash() {
+  if (flashDeck.length === 0) {
+    document.getElementById('flashContent').innerHTML = '<em>No cards in this topic.</em>';
+    return;
+  }
+  const card = flashDeck[flashIdx];
+  document.getElementById('flashCounter').textContent = `${flashIdx + 1} / ${flashDeck.length}`;
+  if (flashFlipped) {
+    document.getElementById('flashSideLabel').textContent = 'Answer';
+    document.getElementById('flashContent').className = 'flash-a';
+    document.getElementById('flashContent').textContent = card.a;
+  } else {
+    document.getElementById('flashSideLabel').textContent = 'Question';
+    document.getElementById('flashContent').className = 'flash-q';
+    document.getElementById('flashContent').textContent = card.q;
+  }
+}
+function flipFlash() { flashFlipped = !flashFlipped; renderFlash(); }
+function nextFlash() {
+  flashIdx = (flashIdx + 1) % flashDeck.length;
+  flashFlipped = false;
+  renderFlash();
+}
+function prevFlash() {
+  flashIdx = (flashIdx - 1 + flashDeck.length) % flashDeck.length;
+  flashFlipped = false;
+  renderFlash();
+}
+buildFlashTopics();
+renderFlash();
+
+// ═══════════════════════════ GAP FILL ═══════════════════════════════════════
+function renderGaps() {
+  const list = document.getElementById('gapList');
+  list.innerHTML = '';
+  GAPS.forEach((g, idx) => {
+    let html = g.q;
+    g.slots.forEach((_, i) => {
+      const inputId = `gap-${idx}-${i}`;
+      html = html.replace(`___${i+1}___`, `<input class="gap-input" id="${inputId}" type="text" autocomplete="off" data-q="${idx}" data-i="${i}">`);
+    });
+    const card = document.createElement('div');
+    card.className = 'gap-card';
+    card.innerHTML = `<div class="gap-q"><strong style="color:var(--indigo);">${idx + 1}.</strong> ${html}</div><div class="gap-feedback" id="gap-fb-${idx}"></div>`;
+    list.appendChild(card);
+  });
+  document.querySelectorAll('.gap-input').forEach(input => {
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') checkAllGaps();
+    });
+  });
+}
+function checkAllGaps() {
+  GAPS.forEach((g, idx) => {
+    let allRight = true;
+    let attempted = false;
+    g.slots.forEach((acceptedList, i) => {
+      const input = document.getElementById(`gap-${idx}-${i}`);
+      if (!input) return;
+      const val = input.value.trim().toLowerCase();
+      if (val) attempted = true;
+      const accepted = acceptedList.map(a => a.toLowerCase());
+      const isRight = accepted.includes(val);
+      input.classList.remove('right', 'wrong');
+      if (isRight) {
+        input.classList.add('right');
+      } else {
+        if (val) input.classList.add('wrong');
+        allRight = false;
+      }
+    });
+    const fb = document.getElementById(`gap-fb-${idx}`);
+    if (!fb) return;
+    if (allRight && attempted) {
+      fb.textContent = '✓ Correct!';
+      fb.style.color = 'var(--green)';
+    } else if (attempted) {
+      const canonical = g.slots.map(s => s[0]).join(', ');
+      fb.textContent = `Correct answer(s): ${canonical}`;
+      fb.style.color = 'var(--rust)';
+    } else {
+      fb.textContent = '';
+    }
+  });
+}
+function resetGaps() {
+  document.querySelectorAll('.gap-input').forEach(i => {
+    i.value = '';
+    i.classList.remove('right', 'wrong');
+  });
+  document.querySelectorAll('.gap-feedback').forEach(f => f.textContent = '');
+}
+renderGaps();
+
+// ═══════════════════════════ MCQ ════════════════════════════════════════════
+let mcqAnswered = new Set();
+let mcqCorrect = 0;
+
+function shuffleArr(a) {
+  const arr = [...a];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function renderMcqs() {
+  const list = document.getElementById('mcqList');
+  list.innerHTML = '';
+  document.getElementById('mcqTotal').textContent = MCQS.length;
+  MCQS.forEach((m, idx) => {
+    const indexed = m.opts.map((o, i) => ({text: o, orig: i}));
+    const shuffled = shuffleArr(indexed);
+    const letters = ['A','B','C','D'];
+    const card = document.createElement('div');
+    card.className = 'mcq-card';
+    let optsHtml = '';
+    shuffled.forEach((s, i) => {
+      optsHtml += `<button class="mcq-opt" data-q="${idx}" data-orig="${s.orig}"><span class="mcq-opt-letter">${letters[i]}</span><span>${s.text}</span></button>`;
+    });
+    card.innerHTML = `
+      <div class="mcq-q"><span class="mcq-num">Q${idx+1}.</span>${m.q}</div>
+      <div class="mcq-options">${optsHtml}</div>
+      <div class="mcq-feedback" id="mcq-fb-${idx}"></div>`;
+    list.appendChild(card);
+  });
+  document.querySelectorAll('.mcq-opt').forEach(btn => {
+    btn.onclick = () => answerMcq(btn);
+  });
+}
+function answerMcq(btn) {
+  const qIdx = parseInt(btn.dataset.q);
+  if (mcqAnswered.has(qIdx)) return;
+  mcqAnswered.add(qIdx);
+  const orig = parseInt(btn.dataset.orig);
+  const m = MCQS[qIdx];
+  const buttons = document.querySelectorAll(`.mcq-opt[data-q="${qIdx}"]`);
+  buttons.forEach(b => {
+    b.disabled = true;
+    if (parseInt(b.dataset.orig) === m.ans) b.classList.add('correct');
+  });
+  const fb = document.getElementById(`mcq-fb-${qIdx}`);
+  fb.classList.add('show');
+  if (orig === m.ans) {
+    mcqCorrect++;
+    fb.classList.add('correct');
+    fb.innerHTML = `<strong>✓ Correct.</strong> ${m.exp}`;
+  } else {
+    btn.classList.add('wrong');
+    fb.classList.add('wrong');
+    fb.innerHTML = `<strong>✗ Not quite.</strong> ${m.exp}`;
+  }
+  document.getElementById('mcqScore').textContent = mcqCorrect;
+  const pct = (mcqAnswered.size / MCQS.length) * 100;
+  document.getElementById('mcqProgress').style.width = pct + '%';
+}
+renderMcqs();
+
+// ═══════════════════════════ EXAM Qs ════════════════════════════════════════
+function renderExam() {
+  const list = document.getElementById('examList');
+  list.innerHTML = '';
+  EXAM_QS.forEach((e, idx) => {
+    const card = document.createElement('div');
+    card.className = 'exam-card';
+    card.innerHTML = `
+      <div class="exam-header">
+        <span class="exam-num">Question ${e.n}</span>
+        <span class="exam-marks">${e.marks} mark${e.marks === 1 ? '' : 's'}</span>
+      </div>
+      <div class="exam-q">${e.q}</div>
+      <button class="reveal-btn" onclick="toggleMs(${idx})" id="reveal-${idx}">Reveal mark scheme</button>
+      <div class="ms" id="ms-${idx}">${e.ms}</div>`;
+    list.appendChild(card);
+  });
+}
+function toggleMs(idx) {
+  const ms = document.getElementById('ms-' + idx);
+  const btn = document.getElementById('reveal-' + idx);
+  if (ms.classList.contains('show')) {
+    ms.classList.remove('show');
+    btn.textContent = 'Reveal mark scheme';
+  } else {
+    ms.classList.add('show');
+    btn.textContent = 'Hide mark scheme';
+  }
+}
+renderExam();
+</script>
+</body>
+</html>
